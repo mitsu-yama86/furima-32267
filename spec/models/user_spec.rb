@@ -10,12 +10,6 @@ describe User do
       it "全ての情報が正しく記入できていれば、新規登録ができる" do
         expect(@user).to be_valid
       end
-
-      it "passwordが6文字以上であれば登録できる" do
-        @user.password = "111aaa"
-        @user.password_confirmation = "111aaa"
-        expect(@user).to be_valid
-      end
     end
 
     context '新規登録がうまくいかないとき' do
