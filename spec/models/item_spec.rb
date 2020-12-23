@@ -32,10 +32,22 @@ describe Item do
         expect(@item.errors.full_messages).to include("Category must be other than 1")
       end
 
+      it "category_idがnilだと出品できない" do
+        @item.category_id = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Category can't be blank")
+      end
+
       it "state_idが1だと出品できない" do
         @item.state_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("State must be other than 1")
+      end
+
+      it "state_idがnilだと出品できない" do
+        @item.state_id = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include("State can't be blank")
       end
 
       it "burden_idが1だと出品できない" do
@@ -44,16 +56,34 @@ describe Item do
         expect(@item.errors.full_messages).to include("Burden must be other than 1")
       end
 
+      it "burden_idがnilだと出品できない" do
+        @item.burden_id = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Burden can't be blank")
+      end
+
       it "prefecture_idが1だと出品できない" do
         @item.prefecture_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Prefecture must be other than 1")
       end
 
+      it "prefecture_idがnilだと出品できない" do
+        @item.prefecture_id = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Prefecture can't be blank")
+      end
+
       it "day_idが1だと出品できない" do
         @item.day_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Day must be other than 1")
+      end
+
+      it "day_idがnilだと出品できない" do
+        @item.day_id = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Day can't be blank")
       end
 
       it "priceが空だと出品できない" do

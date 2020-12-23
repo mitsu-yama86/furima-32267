@@ -23,6 +23,5 @@ class Item < ApplicationRecord
       validates :day_id
     end
     validates :price, format: { with: /\A[0-9]+\z/ }, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999 }
-    validates :user
   end
 end
