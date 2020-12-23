@@ -3,8 +3,8 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index]
 
   def index
-    #@items = Item.order("created_at DESC")
-  end
+    @items = Item.order("created_at DESC") #order("created_at DESC")で、新しく投稿された分から表示する様に並べ替えている
+  end   
   
   def new
     @item = Item.new
