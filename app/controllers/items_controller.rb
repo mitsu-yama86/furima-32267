@@ -3,15 +3,15 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index]
 
   def index
-    #@items = Item.order("created_at DESC")
-  end
+    @items = Item.order("created_at DESC").includes(:user) #order("created_at DESC")で、新しく投稿された分から表示する様に並べ替えている
+  end   
   
   def new
     @item = Item.new
   end
 
   def create
-    @item = Item.new#create(item_params)
+    @item = Item.create(item_params)
     if @item.save
       redirect_to root_path
     else
