@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
 
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :set_item, only: [:show, :edit, :update]
+  before_action :set_item, only: [:show, :edit, :update, :destroy]
 
   def index
     @items = Item.order("created_at DESC").includes(:user) #order("created_at DESC")で、新しく投稿された分から表示する様に並べ替えている
@@ -37,11 +37,10 @@ class ItemsController < ApplicationController
     end
   end
 
-  #def destroy
-    #item = Item.find(params[:id])
-    #item.destroy
-    #redirect_to root_path
-  #end
+  def destroy
+    @item.destroy
+    redirect_to root_path
+  end
 
   private
 
