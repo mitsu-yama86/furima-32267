@@ -10,6 +10,11 @@ RSpec.describe UserOrder, type: :model do
       it "全ての情報が正しく記入できていれば、商品を購入できる" do
         expect(@user_order).to be_valid
       end
+
+      it "建物名が空でも、購入ができる" do
+        @user_order.building = ""
+        expect(@user_order).to be_valid
+      end
     end
 
     context '商品購入がうまくいかない時' do
@@ -101,6 +106,18 @@ RSpec.describe UserOrder, type: :model do
         @user_order.token = ""
         @user_order.valid?
         expect(@user_order.errors.full_messages).to include("Token can't be blank")
+      end
+
+      it "user_idが空だと購入できない" do
+        @user_order.user_id = ""
+        @user_order.valid?
+        expect(@user_order.errors.full_messages).to include("User can't be blank")
+      end
+
+      it "item_idが空だと購入できない" do
+        @user_order.item_id = ""
+        @user_order.valid?
+        expect(@user_order.errors.full_messages).to include("Item can't be blank")
       end
     end
   end

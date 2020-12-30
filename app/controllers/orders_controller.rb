@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
 
-  before_action :authenticate_user!,
+  before_action :authenticate_user!, only: [:index]
 
   def index
     @item = Item.find(params[:item_id])    #rails routesで出たURI Patternが/items/:item_id/orders なので、paramsの中のキーは必ず :item_id になる。
@@ -10,9 +10,6 @@ class OrdersController < ApplicationController
     end
   end
 
-  def new
-    @user_order = UserOrder.new
-  end
 
   def create
     @user_order = UserOrder.new(order_params)
