@@ -1,6 +1,7 @@
 class OrdersController < ApplicationController
 
-  before_action :authenticate_user!, only: [:index]
+  before_action :authenticate_user!, only: [:index, :create]
+  before_action :move_to_index, except: [:index]
 
   def index
     @item = Item.find(params[:item_id])    #rails routesで出たURI Patternが/items/:item_id/orders なので、paramsの中のキーは必ず :item_id になる。
@@ -29,6 +30,10 @@ class OrdersController < ApplicationController
     params.require(:user_order).permit(:postal_code, :prefecture_id, :city, :address, :phone_number, :building, :purchese).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token] )
   end
 
+  # 
+  def move_to_index
+    redirect_to root_path unless current_user.id == @item.user_id
+  end
 
   # 購入情報をPayjpに送信する処理
   def pay_item
