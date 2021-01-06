@@ -2,6 +2,7 @@ class ItemsController < ApplicationController
 
   before_action :authenticate_user!, except: [:index, :show]
   before_action :set_item, only: [:show, :edit, :update, :destroy]
+  before_action :purchese_present?, only: [:edit]
 
   def index
     @items = Item.order("created_at DESC").includes(:user) #order("created_at DESC")で、新しく投稿された分から表示する様に並べ替えている
@@ -24,8 +25,8 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    unless current_user.id == @item.user_id
-      redirect_to :index
+    if current_user.id != @item.user_id
+      redirect_to root_path
     end
   end
 
@@ -52,5 +53,9 @@ class ItemsController < ApplicationController
 
   def set_item
     @item = Item.find(params[:id])
+  end
+
+  def purchese_present?    # 購入済みの商品の購入ページに遷移できないし、購入処理もさせない。
+    redirect_to root_path if @item.purchese.present?
   end
 end
